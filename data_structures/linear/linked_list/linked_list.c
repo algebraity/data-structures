@@ -103,7 +103,11 @@ ListNode* constructNode(Value* val) {
 	ListNode* node = malloc(sizeof(ListNode));
 	if (!node) return NULL;
 	node->next = NULL;
-	node->val = val;
+	node->val = copyValue(val);
+	if (val && !node->val) {
+		free(node);
+		return NULL;
+	}
 	return node;
 }
 
@@ -114,14 +118,12 @@ ListNode* constructList(Value** vals, int valSize) {
 
 	for (int i = 0; i < valSize; i++) {
 		if (!vals[i]) {
-			for (int j = 0; j < valSize; j++) freeValue(vals[j]);
 			return NULL;
 		}
 	}
 
 	ListNode* head = constructNode(vals[0]);
 	if (!head) {
-		for (int i = 0; i < valSize; i++) freeValue(vals[i]);
 		return NULL;
 	}
 
@@ -130,7 +132,6 @@ ListNode* constructList(Value** vals, int valSize) {
 		ListNode* temp = constructNode(vals[i]);
 		if (!temp) {
 			freeList(head);
-			for (int j = i; j < valSize; j++) freeValue(vals[j]);
 			return NULL;
 		}
 		cur->next = temp;
@@ -144,16 +145,7 @@ ListNode* constructList(Value** vals, int valSize) {
 ListNode* copyListNode(ListNode* node) {
 	if (!node) return NULL;
 
-	Value* val = copyValue(node->val);
-	if (node->val && !val) return NULL;
-
-	ListNode* copy = constructNode(val);
-	if (!copy) {
-		freeValue(val);
-		return NULL;
-	}
-
-	return copy;
+	return constructNode(node->val);
 }
 
 // Copy a linked list
@@ -272,7 +264,8 @@ int listPush(ListNode* head, Value* val) {
 	if (!head || !val) return -1;
 
 	if (isEmpty(head)) {
-		head->val = val;
+		head->val = copyValue(val);
+		if (!head->val) return -1;
 		return 0;
 	}
 

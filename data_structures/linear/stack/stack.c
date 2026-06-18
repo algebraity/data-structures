@@ -67,6 +67,12 @@ void freeStack(Stack* stack) {
     free(stack);
 }
 
+// Returns 1 if the Stack is empty, else 0
+int stackIsEmpty(Stack* stack) {
+    if (!stack) return 1;
+    return stack->top == -1;
+}
+
 // Push a Value onto the Stack; returns 0 for success, -1 for failure
 int stackPush(Stack* stack, Value* value) {
     if (!stack) return -1;
@@ -89,14 +95,13 @@ int stackPush(Stack* stack, Value* value) {
     return 0;
 }
 
-// Pop a Value from the top of the Stack, removing it and returning a copy of it
+// Pop a Value from the top of the Stack, removing it and returning its value
 Value* stackPop(Stack* stack) {
     if (!stack) return NULL;
     if (stack->top < 0) return NULL;
 
-    Value* val = copyValue(stack->values[stack->top]);
-    if (!val) return NULL;
-    freeValue(stack->values[stack->top]);
+    Value* val = stack->values[stack->top];
+    stack->values[stack->top] = NULL;
     stack->top--;
 
     return val;

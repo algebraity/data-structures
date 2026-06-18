@@ -18,6 +18,7 @@ struct Stack {
 Stack* constructStack(Value** vals, size_t valsSize);
 Stack* emptyStack(void);
 void freeStack(Stack* stack);
+int stackIsEmpty(Stack* stack);
 int stackPush(Stack* stack, Value* value);
 Value* stackPop(Stack* stack);
 Value* stackPeek(Stack* stack);
