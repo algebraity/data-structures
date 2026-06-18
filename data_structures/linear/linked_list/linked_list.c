@@ -191,13 +191,41 @@ int listLength(listNode* head) {
 
 /* ---------- List manipulation ---------- */
 
-// Remove the nth node from a linked list
-listNode* removeNthNode(listNode* head) {
-	if (!head) return NULL;
+// Remove the nth node from a linked list; 0 = success, -1 = failure
+int removeNthNode(listNode* head, size_t n) {
+	if (!head || n == 0) return -1;
 	
-	listNode* front
+	if (n == 1) {
+		listNode* newHead = head;
+		newHead = head->next;
+		freeNode(head);
+		free(newHead);
+		return 1;
+	}
 
+	int node = 2;
+	listNode* back = head;
+	listNode* front = head->next;
+	while (front->next != NULL) {
+		node++;
+		back = back->next;
+		front = fron->next;
+	}
+
+	back->next = front->next->next;
+	freeNode(front);
+	free(back);
+
+	return 0;
 }
-listNode* reverseList(listNode* head);
-listNode* sortList(listNode* head);
+
+// Reverse a linked list; 0 = success, -1 = failure
+int reverseList(listNode* head) {
+	return -1;
+}
+
+// Sort a linked list; order = -1 for desc, order = 1 for asc
+int sortList(listNode* head, int order) {
+	return -1;
+}
 

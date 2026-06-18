@@ -25,8 +25,6 @@ int listPush(listNode* head, int val);
 int listPop(listNode* head);
 int listPeek(listNode* head);
 int listGetNthVal(listNode* head, size_t n);
-int listRemove(listNode* head, size_t index);
-int listRemoveVal(listNode* head, int val);
 int listLength(listNode* head);
 
 /* ---------- Basic list properties ---------- */
@@ -34,9 +32,9 @@ int isEmpty(listNode* head);
 int isSorted(listNode* head);
 
 /* ---------- List manipulation ---------- */
-listNode* removeNthNode(listNode* head);
-listNode* reverseList(listNode* head);
-listNode* sortList(listNode* head);
+int removeNthNode(listNode* head);
+int reverseList(listNode* head);
+int sortList(listNode* head);
 
 
 
