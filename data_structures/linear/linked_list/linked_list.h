@@ -40,7 +40,7 @@ int isSorted(ListNode* head);
 
 /* ---------- List manipulation ---------- */
 Value* popNthNode(ListNode** head, size_t n);
-ListNode* reverseList(ListNode** head);
-ListNode* sortList(ListNode** head);
+int reverseList(ListNode** head);
+int sortList(ListNode** head);
 
 #endif

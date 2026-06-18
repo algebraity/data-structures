@@ -44,7 +44,7 @@ int dIsSorted(DListNode* head);
 
 /* ---------- List manipulation ---------- */
 Value* popNthDNode(DListNode** head, size_t n);
-DListNode* reverseDList(DListNode** head);
-DListNode* sortDList(DListNode** head);
+int reverseDList(DListNode** head);
+int sortDList(DListNode** head);
 
 #endif

@@ -365,9 +365,10 @@ Value* popNthDNode(DListNode** head, size_t n) {
 	return val;
 }
 
-// Reverse a doubly linked list
-DListNode* reverseDList(DListNode** head) {
-	if (!head || !*head) return NULL;
+// Reverse a doubly linked list in place; 0 = success, -1 = failure
+int reverseDList(DListNode** head) {
+	if (!head) return -1;
+	if (!*head) return 0;
 
 	DListNode* cur = *head;
 	DListNode* newHead = NULL;
@@ -380,18 +381,21 @@ DListNode* reverseDList(DListNode** head) {
 	}
 
 	*head = newHead;
-	return *head;
+	return 0;
 }
 
-// Sort a doubly linked list in ascending order
-DListNode* sortDList(DListNode** head) {
-	if (!head || !*head) return NULL;
+// Sort a doubly linked list in ascending order in place; 0 = success, -1 = failure
+int sortDList(DListNode** head) {
+	if (!head) return -1;
+	if (!*head) return 0;
 
 	int len = dListLength(*head);
-	if (len < 2) return *head;
-	if (!isNumericDList(*head)) return *head;
+	if (len < 0) return -1;
+	if (len < 2) return 0;
+	if (!isNumericDList(*head)) return -1;
 
 	*head = sort(*head, len);
+	if (!*head) return -1;
 
 	DListNode* prev = NULL;
 	DListNode* cur = *head;
@@ -401,5 +405,5 @@ DListNode* sortDList(DListNode** head) {
 		cur = cur->next;
 	}
 
-	return *head;
+	return 0;
 }

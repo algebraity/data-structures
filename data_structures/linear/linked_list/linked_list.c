@@ -360,11 +360,12 @@ Value* popNthNode(ListNode** head, size_t n) {
 	return val;
 }
 
-// Reverse a linked list
-ListNode* reverseList(ListNode** head) {
-	if (!head) return NULL;
+// Reverse a linked list in place; 0 = success, -1 = failure
+int reverseList(ListNode** head) {
+	if (!head) return -1;
 	int len = listLength(*head);
-	if (!*head || len < 2) return *head;
+	if (len < 0) return -1;
+	if (!*head || len < 2) return 0;
 
 	ListNode* prev = NULL;
 	ListNode* cur = *head;
@@ -376,16 +377,18 @@ ListNode* reverseList(ListNode** head) {
 	}
 
 	*head = prev;
-	return *head;
+	return 0;
 }
 
-// Sort a linked list in ascending order
-ListNode* sortList(ListNode** head) {
-	if (!head) return NULL;
+// Sort a linked list in ascending order in place; 0 = success, -1 = failure
+int sortList(ListNode** head) {
+	if (!head) return -1;
 	int len = listLength(*head);
-	if (!*head || len < 2) return *head;
-	if (!isNumericList(*head)) return *head;
+	if (len < 0) return -1;
+	if (!*head || len < 2) return 0;
+	if (!isNumericList(*head)) return -1;
 
 	*head = sort(*head, len);
-	return *head;
+	if (!*head) return -1;
+	return 0;
 }
