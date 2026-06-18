@@ -27,8 +27,8 @@ void freeList(ListNode* head);
 /* ---------- Basic list operations ---------- */
 ListNode* lastNode(ListNode* head);
 ListNode* nthNode(ListNode* head, size_t n);
-int listPush(ListNode* head, Value* val);
-Value* listPop(ListNode* head);
+int listPush(ListNode** head, Value* val);
+Value* listPop(ListNode** head);
 Value* listPeek(ListNode* head);
 Value* listGetNthVal(ListNode* head, size_t n);
 int listLength(ListNode* head);
@@ -39,8 +39,8 @@ int isNonEmpty(ListNode* head);
 int isSorted(ListNode* head);
 
 /* ---------- List manipulation ---------- */
-Value* popNthNode(ListNode* head, size_t n);
-ListNode* reverseList(ListNode* head);
-ListNode* sortList(ListNode* head);
+Value* popNthNode(ListNode** head, size_t n);
+ListNode* reverseList(ListNode** head);
+ListNode* sortList(ListNode** head);
 
 #endif

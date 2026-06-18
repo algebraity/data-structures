@@ -232,7 +232,7 @@ int isSorted(ListNode* head) {
 // Return the last node of a list
 ListNode* lastNode(ListNode* head) {
 	if (!head) return NULL;
-	
+
 	int count = 1;
 	ListNode* cur = head;
 	while (cur->next != NULL) {
@@ -260,28 +260,35 @@ ListNode* nthNode(ListNode* head, size_t n) {
 }
 
 // Push a value onto the end of the list; 0 = success, -1 = failure
-int listPush(ListNode* head, Value* val) {
+int listPush(ListNode** head, Value* val) {
 	if (!head || !val) return -1;
 
-	if (isEmpty(head)) {
-		head->val = copyValue(val);
-		if (!head->val) return -1;
+	if (!*head) {
+		*head = constructNode(val);
+		if (!*head) return -1;
 		return 0;
 	}
 
-	ListNode* last = lastNode(head);
+	if (isEmpty(*head)) {
+		(*head)->val = copyValue(val);
+		if (!(*head)->val) return -1;
+		return 0;
+	}
+
+	ListNode* last = lastNode(*head);
 	if (!last || !last->val) return -1;
 
 	ListNode* next = constructNode(val);
 	if (!next) return -1;
 	last->next = next;
-	
+
 	return 0;
 }
 
 // Pop a value from the end of the list and return its value
-Value* listPop(ListNode* head) {
-	int len = listLength(head);
+Value* listPop(ListNode** head) {
+	if (!head) return NULL;
+	int len = listLength(*head);
 	if (len < 1) return NULL;
 	return popNthNode(head, len);
 }
@@ -289,7 +296,7 @@ Value* listPop(ListNode* head) {
 // Returns a copy of the value of the last node in a list
 Value* listPeek(ListNode* head) {
 	if (!head || isEmpty(head)) return NULL;
-	
+
 	ListNode* last = lastNode(head);
 	if (!last || !last->val) return NULL;
 
@@ -324,25 +331,19 @@ int listLength(ListNode* head) {
 /* ---------- List manipulation ---------- */
 
 // Pop the nth node from a linked list and return its value
-Value* popNthNode(ListNode* head, size_t n) {
-	if (!head || n == 0 || isEmpty(head)) return NULL;
+Value* popNthNode(ListNode** head, size_t n) {
+	if (!head || !*head || n == 0 || isEmpty(*head)) return NULL;
 
 	if (n == 1) {
-		Value* val = head->val;
-		if (!head->next) {
-			head->val = NULL;
-		}
-		else {
-			ListNode* next = head->next;
-			head->val = next->val;
-			head->next = next->next;
-			freeNodeOnly(next);
-		}
+		ListNode* node = *head;
+		Value* val = node->val;
+		*head = node->next;
+		freeNodeOnly(node);
 		return val;
 	}
 
-	ListNode* back = head;
-	ListNode* front = head->next;
+	ListNode* back = *head;
+	ListNode* front = (*head)->next;
 	size_t count = 2;
 	while (front != NULL && count < n) {
 		back = front;
@@ -360,12 +361,13 @@ Value* popNthNode(ListNode* head, size_t n) {
 }
 
 // Reverse a linked list
-ListNode* reverseList(ListNode* head) {
-	int len = listLength(head);
-	if (!head || len < 2) return head;
-	
+ListNode* reverseList(ListNode** head) {
+	if (!head) return NULL;
+	int len = listLength(*head);
+	if (!*head || len < 2) return *head;
+
 	ListNode* prev = NULL;
-	ListNode* cur = head;
+	ListNode* cur = *head;
 	while (cur != NULL) {
 		ListNode* next = cur->next;
 		cur->next = prev;
@@ -373,14 +375,17 @@ ListNode* reverseList(ListNode* head) {
 		cur = next;
 	}
 
-	return prev;
+	*head = prev;
+	return *head;
 }
 
 // Sort a linked list in ascending order
-ListNode* sortList(ListNode* head) {
-	int len = listLength(head);
-	if (!head || len < 2) return head;
-	if (!isNumericList(head)) return head;
+ListNode* sortList(ListNode** head) {
+	if (!head) return NULL;
+	int len = listLength(*head);
+	if (!*head || len < 2) return *head;
+	if (!isNumericList(*head)) return *head;
 
-	return sort(head, len);
+	*head = sort(*head, len);
+	return *head;
 }
