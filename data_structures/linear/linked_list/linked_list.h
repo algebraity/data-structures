@@ -4,37 +4,36 @@
 #define MAX_LEN 10000
 
 /* ---------- Definition of structs ---------- */
-typedef struct listNode listNode;
+typedef struct ListNode ListNode;
 
-struct {
-	listNode* next;
+struct ListNode {
+	ListNode* next;
 	int val;
-} listNodeS;
+};
 
 /* ---------- Construct and free methods ---------- */
-listNode* constructNode(int val);
-listNode* constructList(int* vals, int valSize);
-listNode* emptyList(void);
-void freeNode(listNode* node);
-void freeList(listNode* head);
+ListNode* constructNode(int val);
+ListNode* constructList(int* vals, int valSize);
+ListNode* emptyList(void);
+void freeNode(ListNode* node);
+void freeList(ListNode* head);
 
 /* ---------- Basic list operations ---------- */
-listNode* lastNode(listNode* head);
-listNode* nthNode(listNode* head, size_t n);
-int listPush(listNode* head, int val);
-int listPop(listNode* head);
-int listPeek(listNode* head);
-int listGetNthVal(listNode* head, size_t n);
-int listLength(listNode* head);
+ListNode* lastNode(ListNode* head);
+ListNode* nthNode(ListNode* head, size_t n);
+int listPush(ListNode* head, int val);
+int listPop(ListNode* head);
+int listPeek(ListNode* head);
+int listGetNthVal(ListNode* head, size_t n);
+int listLength(ListNode* head);
 
 /* ---------- Basic list properties ---------- */
-int isEmpty(listNode* head);
-int isSorted(listNode* head);
+int isEmpty(ListNode* head);
+int isSorted(ListNode* head);
 
 /* ---------- List manipulation ---------- */
-int removeNthNode(listNode* head);
-int reverseList(listNode* head);
-int sortList(listNode* head);
+int removeNthNode(ListNode* head, size_t n);
+int reverseList(ListNode* head);
+int sortList(ListNode* head);
 
-
-
+#endif
