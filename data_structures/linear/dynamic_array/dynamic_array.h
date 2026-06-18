@@ -1,6 +1,8 @@
 #ifndef DYNAMIC_ARRAY_H
 #define DYNAMIC_ARRAY_H
 
+#include<stddef.h>
+
 /* ---------- Preprocessor macros ---------- */
 #define daType(T)\
 	struct {\
@@ -21,4 +23,3 @@ void daRemove(void* da, size_t index);
 void daFree(void* array);
 
 #endif
-
