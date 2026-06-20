@@ -26,7 +26,8 @@ void freeTreeNode(TreeNode* node);
 void freeTree(TreeNode* node);
 
 /* ---------- Basic tree operations ---------- */
-TreeNode* getLeaves(TreeNode* root);
+TreeNode** getLeaves(TreeNode* root);
+int addLeaf(TreeNode* root, Value* leaf);
 int treeDepth(TreeNode* root);
 int trimTree(TreeNode** root, size_t maxDepth);
 
@@ -36,9 +37,5 @@ int isNonEmptyTree(TreeNode* root);
 int isBST(TreeNode* root);
 int isMinHeap(TreeNode* root);
 int isMaxHeap(TreeNode* root);
-
-/* ---------- Tree manipulation ---------- */
-TreeNode* convertToBST(TreeNode* root);
-TreeNode* convertToHeap(TreeNode* root);
 
 #endif
